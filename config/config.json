@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "simple-poll-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/simplePoll/SimplePollWebPart.js",
+          "manifest": "./src/webparts/simplePoll/SimplePollWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "SimplePollWebPartStrings": "lib/webparts/simplePoll/loc/{locale}.js",
+    "SimplePollStrings": "lib/webparts/simplePoll/loc/{locale}.js"
+  }
+}
