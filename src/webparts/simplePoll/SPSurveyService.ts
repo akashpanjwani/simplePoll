@@ -64,7 +64,7 @@ export class SPSurveyService implements ISPSurveyService {
 
   public postVote(surveyListId: string, question: string, choice: string): Promise<boolean> {
 
-    return this.getListName(surveyListId).then((listName: string) => {
+    return this.getListName(surveyListId).then((response: any) => {
 
       var restUrl: string = this.context.pageContext.web.absoluteUrl;
       restUrl += "/_api/Web/Lists(guid'";
@@ -72,7 +72,7 @@ export class SPSurveyService implements ISPSurveyService {
       restUrl += "')/items";
 
       var item = {
-          "__metadata": { "type": this.getItemTypeForListName(listName) },
+          "__metadata": { "type": "SP.Data."+response.Title+"ListItem"},
           "Title": "newItemTitle"
       };
       item[question] = choice;
@@ -106,11 +106,11 @@ export class SPSurveyService implements ISPSurveyService {
       }
     };
     return this.context.spHttpClient.get(restUrl, SPHttpClient.configurations.v1, options).then((response: SPHttpClientResponse) => {
-        return response.text().then((responseFormated: string) => {
-            var iTitle = responseFormated.indexOf("<d:Title>");
-            var newStr = responseFormated.slice(iTitle + 9, responseFormated.length);
-            newStr = newStr.slice(0, newStr.indexOf("</d:Title>"));
-            return newStr;
+        return response.json().then((responseFormated: any) => {
+           // var iTitle = responseFormated.indexOf("<d:Title>");
+           // var newStr = responseFormated.slice(iTitle + 9, responseFormated.length);
+           // newStr = newStr.slice(0, newStr.indexOf("</d:Title>"));
+            return responseFormated;
         });
     });
   }

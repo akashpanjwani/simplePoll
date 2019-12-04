@@ -200,7 +200,6 @@ export default class SimplePollWebPartHost extends React.Component<ISimplePollWe
    this.setState({
       selectedValue:elm.currentTarget.value
     });
-    //this.setState(this.state);
   }
 
   private vote(elm?: any): void {
@@ -209,7 +208,6 @@ export default class SimplePollWebPartHost extends React.Component<ISimplePollWe
       this.setState({
         popupErrorOpened:true
       });
-      this.setState(this.state);
     }
     else {
       const listService: SPSurveyService = new SPSurveyService(this.props, this.myPageContext);
@@ -219,25 +217,26 @@ export default class SimplePollWebPartHost extends React.Component<ISimplePollWe
           resultsLoaded : false,
           results : []
         });
-         this.setState(this.state);
       });
     }
   }
 
   private closeError(): void {
     this.setState({popupErrorOpened:false});
-    this.setState(this.state);
+    
   }
 
   private closeVote(): void {
-    this.setState({popupOpened:false,
-    alreadyVote :true});
-    this.setState(this.state);
+    this.setState({
+      popupOpened:false,
+      alreadyVote :true
+    });
+    
   }
 
   private viewResultsBack(elm?: any): void {
     this.setState({viewResults:false});
-    this.setState(this.state);
+   
   }
 
   private viewResults(elm?: any): void {
@@ -250,12 +249,10 @@ export default class SimplePollWebPartHost extends React.Component<ISimplePollWe
       const listService: SPSurveyService = new SPSurveyService(this.props, this.myPageContext);
       listService.getResults(this.props.surveyList, this.state.questionInternalName, this.state.choices).then((num: number[]) => {
         this.setState({results:num,loaded:true});
-          this.setState(this.state);
           this.loadChart();
       });
     }
     else {
-      this.setState(this.state);
     }
   }
 
